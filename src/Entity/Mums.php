@@ -38,7 +38,6 @@ class Mums
 
     /**
      * @ORM\OneToOne(targetEntity="MumLocations", mappedBy="mum", cascade={"persist", "remove"}, orphanRemoval=true, fetch="EAGER")
-     * @ORM\JoinColumn(name="mum_id", referencedColumnName="mum_id", nullable=true)
      * @var MumLocations
      */
     private $mumLocation;
