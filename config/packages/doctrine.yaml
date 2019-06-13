@@ -1,0 +1,38 @@
+parameters:
+    # Adds a fallback DATABASE_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        connections:
+            default:
+                # configure these for your database server
+                wrapper_class: Doctrine\DBAL\Connections\MasterSlaveConnection
+                driver: 'pdo_mysql'
+                server_version: 'mariadb-10.3.0'
+                charset: utf8mb4
+                default_table_options:
+                    charset: utf8mb4
+                    collate: utf8mb4_unicode_ci
+
+                url: '%env(resolve:DATABASE_URL)%'
+                slaves:
+                    slave1:
+                        url: '%env(resolve:DATABASE_SLAVE_URL)%'
+                        charset: utf8mb4
+    orm:
+        metadata_cache_driver: apcu
+        query_cache_driver: apcu
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
