@@ -35,7 +35,7 @@ class MumLocations
     /**
      * @ORM\Id
      * @Groups({"default"})
-     * @ORM\OneToOne(targetEntity="Mums", inversedBy="mumLocation", fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="Mums", inversedBy="mumLocation")
      * @ORM\JoinColumn(name="mum_id", referencedColumnName="mum_id", nullable=false)
      * @var Mums
      */
